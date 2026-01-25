@@ -1,0 +1,42 @@
+# CodePact Governance Configuration
+# This file defines the baseline policies for your organization.
+# It is synchronized to all repositories managed by CodePact.
+
+name: organization-baseline
+type: org_baseline
+enforcement_mode: audit # Start in audit mode to see violations without blocking
+
+settings:
+  branch_protection:
+    default_branch:
+      # Require Pull Requests for changes to the default branch
+      require_pull_request: true
+      
+      # Number of approvals required before merging
+      required_approvals: 1
+      
+      # Dismiss approving reviews when new commits are pushed
+      dismiss_stale_reviews: true
+      
+      # Require review from Code Owners if defined
+      require_code_owner_reviews: false
+      
+      # Prevent force pushes to the default branch (History rewriting)
+      prevent_force_push: true
+      
+      # Prevent deletion of the default branch
+      prevent_deletion: true
+      
+      # Enforce these rules for administrators as well
+      enforce_admins: true
+      
+      # Require status checks to pass before merging
+      require_status_checks: true
+      require_branches_up_to_date: true
+
+# Auto-merge rules for CodePact-managed changes (like this file)
+codepact_auto_merge:
+  enabled: true
+  allowed_paths:
+    - codepact.yaml
+    - .codepact/**
