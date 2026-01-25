@@ -1,6 +1,6 @@
-# CodePact Configuration Repository
+# CodePact Configuration Repository (pact-baseline)
 
-This repository stores the governance configuration for your organization. CodePact uses the `codepact.yaml` file in this repository as the **Organization Baseline**.
+This repository stores the specific governance configuration for your organization. CodePact uses the `codepact.yaml` file in this repository as the **Organization Baseline**.
 
 ## How it works
 
@@ -12,17 +12,13 @@ This repository stores the governance configuration for your organization. CodeP
 ## File Structure
 
 - `codepact.yaml`: The main configuration file defining policies.
+  - Can also be placed in `.codepact/codepact.yaml`.
 
 ## Key Settings
 
 - `enforcement_mode`:
     - `audit`: Violations are reported but not blocked (good for starting out).
     - `enforce`: Violations are actively corrected (e.g., branch protection is re-applied if changed).
-
-
-- `workspace.pact_naming_convention`:
-    - Defines the glob pattern to identify Team Pact repositories (e.g., `*.pact` or `pact-*`).
-    - CodePact automatically detects repositories matching this pattern as sources of team governance.
 
 - `branch_protection`: Defines the rules for the default branch (e.g., `main` or `master`).
 
