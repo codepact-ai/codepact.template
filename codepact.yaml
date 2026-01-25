@@ -6,6 +6,15 @@ name: organization-baseline
 type: org_baseline
 enforcement_mode: audit # Start in audit mode to see violations without blocking
 
+# Workspace Configuration
+# Define how CodePact identifies and organizes repositories in your organization.
+workspace:
+  # Pattern to identify Team Pact repositories.
+  # Defaults: "*.pact" (suffix) or "pact-*" (prefix) are common recommendations.
+  # This pattern allows flexible naming conventions suited to your org.
+  pact_naming_convention: "*.pact"
+
+
 settings:
   branch_protection:
     default_branch:

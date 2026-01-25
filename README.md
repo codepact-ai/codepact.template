@@ -19,6 +19,11 @@ This repository stores the governance configuration for your organization. CodeP
     - `audit`: Violations are reported but not blocked (good for starting out).
     - `enforce`: Violations are actively corrected (e.g., branch protection is re-applied if changed).
 
+
+- `workspace.pact_naming_convention`:
+    - Defines the glob pattern to identify Team Pact repositories (e.g., `*.pact` or `pact-*`).
+    - CodePact automatically detects repositories matching this pattern as sources of team governance.
+
 - `branch_protection`: Defines the rules for the default branch (e.g., `main` or `master`).
 
 ## Support
