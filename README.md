@@ -1,26 +1,42 @@
-# CodePact Configuration Repository (pact-baseline)
+# CodePact Configuration Repository
 
-This repository stores the specific governance configuration for your organization. CodePact uses the `codepact.yaml` file in this repository as the **Organization Baseline**.
+This repository is the **central governance hub** for your organization, managed by [CodePact AI](https://codepact.ai). All governance policies, team configurations, and file distribution rules are defined here.
 
-## How it works
+## How It Works
 
-1.  **Modify Policies**: Edit `codepact.yaml` to change governance rules (e.g., increase required approvals, enable strict status checks).
-2.  **Pull Request**: Create a Pull Request with your changes.
-3.  **Review & Merge**: once merged, CodePact will detect the change.
-4.  **Propagation**: CodePact will automatically propose updates to the `codepact.yaml` file in all managed repositories to match this baseline.
+1. **Edit policies** in `codepact.yaml` (org baseline) or `teams/<slug>/codepact.yaml` (team overrides).
+2. **Push to default branch** — CodePact detects the change automatically via webhook.
+3. **Policies propagate** — effective policies are recalculated for all repositories.
+4. **Files distribute** — any files in `files/` or `teams/<slug>/files/` are synced to target repos.
 
-## File Structure
+## Directory Structure
 
-- `codepact.yaml`: The main configuration file defining policies.
-  - Can also be placed in `.codepact/codepact.yaml`.
+```
+codepact/
+├── codepact.yaml               # Organization baseline policy
+├── files/                      # Org-wide file distribution
+│   └── .github/CODEOWNERS      # Example: distributed to all repos
+├── teams/
+│   └── <team-slug>/
+│       ├── codepact.yaml       # Team policy (inherits org baseline)
+│       └── files/              # Team-specific file distribution
+└── .teammap.yaml               # Team slug → ID mapping (auto-maintained)
+```
 
 ## Key Settings
 
-- `enforcement_mode`:
-    - `audit`: Violations are reported but not blocked (good for starting out).
-    - `enforce`: Violations are actively corrected (e.g., branch protection is re-applied if changed).
+| Setting             | Values                    | Description                                    |
+| ------------------- | ------------------------- | ---------------------------------------------- |
+| `enforcement_mode`  | `audit`, `warn`, `enforced` | How violations are reported and handled       |
+| `branch_protection` | nested config             | Rules for the default branch                   |
+| `security`          | nested config             | Secret scanning, Dependabot, code scanning     |
+| `file_distribution` | list of managed files     | Files to sync across repos (`sync`/`seed`/`pr`) |
 
-- `branch_protection`: Defines the rules for the default branch (e.g., `main` or `master`).
+## Three-Tier Override Hierarchy
+
+1. **Repo-local** `codepact.yaml` — highest priority (preserved by default)
+2. **Team policy** — `teams/<slug>/codepact.yaml`
+3. **Org baseline** — root `codepact.yaml` (lowest priority)
 
 ## Support
 

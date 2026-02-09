@@ -1,0 +1,21 @@
+# Example Team Pact
+# Rename this directory to your team's GitHub slug (e.g., platform-engineering/)
+# This pact inherits the organization baseline and can add stricter overrides.
+
+version: "1.0"
+
+pacts:
+  example-team:
+    name: Example Team
+    type: team
+    team_slug: example-team
+    enforcement_mode: audit
+    inherits: organization-baseline
+    settings:
+      branch_protection:
+        default_branch:
+          required_pull_request_reviews:
+            required_approving_review_count: 2 # Stricter than org baseline (1)
+      security:
+        secret_scanning: true
+        secret_scanning_push_protection: true
